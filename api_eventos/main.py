@@ -1,3 +1,6 @@
+import sys
+sys.dont_write_bytecode = True
+
 from fastapi import FastAPI
 from presetation.rotas_autenticacao import router as auth_router
 from presetation.rotas_eventos import router as eventos_router

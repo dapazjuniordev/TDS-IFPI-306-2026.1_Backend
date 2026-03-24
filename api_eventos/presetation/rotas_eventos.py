@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status
-from domain.modelos import Evento
+from domain.modelos_eventos import Evento
 from persisence.eventos_repository import EventoRepository
 
 router = APIRouter()
