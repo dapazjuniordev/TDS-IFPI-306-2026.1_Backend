@@ -19,3 +19,11 @@ class AutenticacaoRepository():
                 return user
         
         return None
+    
+
+    def getById(self, id:int):
+        for user in self.users:
+            if user.id == id:
+                return user
+        
+        return None

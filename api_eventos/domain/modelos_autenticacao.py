@@ -1,13 +1,13 @@
 from pydantic import BaseModel
 
 
-class BaseUser():
+class BaseUser(BaseModel):
     id: int
     email: str
     nome: str
 
 
-class User():
+class User(BaseModel):
     id: int
     email: str
     senha: str

@@ -3,6 +3,7 @@ from fastapi import APIRouter, status, HTTPException
 from persisence.autenticacao_repository import AutenticacaoRepository
 from presetation.dto.autenticacao_dtos import SignupDTO, SigninDTO
 from domain.modelos_autenticacao import BaseUser
+from infrastructure import hash_provider, jwt_provider
 
 router = APIRouter()
 repo = AutenticacaoRepository()
@@ -24,11 +25,12 @@ def signin(dados: SigninDTO):
     if not usuario_encontrado:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Usuário não localizado")
     
-    if usuario_encontrado.senha != dados.senha:
+    if not hash_provider.verify_hash(dados.senha, usuario_encontrado.senha):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Senha incorreta")
     
-    return {"acess_token": f"Fake_Token[{usuario_encontrado.id}]-1234567"}
+    access_token = jwt_provider.generate({'sub': usuario_encontrado.id})
+    return {"access_token": access_token}
 
 @router.get('/me')
 def me():
-    return ''
+    ...
